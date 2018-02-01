@@ -36,7 +36,6 @@ import {of} from 'rxjs/observable/of';
 })
 export class ProductItemComponent implements OnInit {
   selected$: Observable<Pizza>;
-  toppings: string[];
   toppings$: Observable<string[]>;
   pizza$: Observable<Pizza>;
 
@@ -91,9 +90,10 @@ export class ProductItemComponent implements OnInit {
   }
 
   onCreate(event: Pizza) {
-    this.pizzaService.createPizza(event).subscribe(pizza => {
-      this.router.navigate([`/products/${pizza.id}`]);
-    });
+    this.store.dispatch(new fromPizzas.CreatePizza(event));
+    // this.pizzaService.createPizza(event).subscribe(pizza => {
+    //   this.router.navigate([`/products/${pizza.id}`]);
+    // });
   }
 
   onUpdate(event: Pizza) {

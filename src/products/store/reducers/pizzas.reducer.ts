@@ -39,6 +39,12 @@ export function reducer(state = initialState, action: fromPizzas.PizzasAction) {
           selected: action.payload
         }
       }
+      case fromPizzas.CREATE_PIZZA_SUCCESS: {
+        return {
+          ...state,
+          pizzas: [...state.pizzas, action.payload]
+        }
+      }
       default: {
         return state;
       }
