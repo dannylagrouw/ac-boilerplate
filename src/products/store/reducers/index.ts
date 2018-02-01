@@ -22,5 +22,7 @@ export const getPizzaState = createSelector(
 );
 export const getPizzas = createSelector(getPizzaState, fromPizzas.getPizzas);
 export const getSelectedPizza = createSelector(getPizzaState, fromPizzas.getSelectedPizza);
+export const getPizzasLoaded = createSelector(getPizzaState, fromPizzas.getPizzasLoaded);
 export const getToppingsState = createSelector(getProductsState, (state: ProductsState) => state.toppings);
 export const getToppings = createSelector(getToppingsState, fromToppings.getToppings);
+export const getToppingsLoaded = createSelector(getToppingsState, fromToppings.getToppingsLoaded);

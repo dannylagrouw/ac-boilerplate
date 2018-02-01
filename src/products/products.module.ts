@@ -23,15 +23,18 @@ import { effects, reducers } from './store';
 export const ROUTES: Routes = [
   {
     path: '',
-    component: fromContainers.ProductsComponent
+    component: fromContainers.ProductsComponent,
+    canActivate: [fromGuards.PizzasGuard]
   },
   {
     path: ':id',
-    component: fromContainers.ProductItemComponent
+    component: fromContainers.ProductItemComponent,
+    canActivate: [fromGuards.PizzasGuard, fromGuards.ToppingsGuard]
   },
   {
     path: 'new',
-    component: fromContainers.ProductItemComponent
+    component: fromContainers.ProductItemComponent,
+    canActivate: [fromGuards.PizzasGuard, fromGuards.ToppingsGuard]
   }
 ];
 

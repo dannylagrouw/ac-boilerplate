@@ -80,9 +80,6 @@ export class ProductItemComponent implements OnInit {
     );
 
     this.toppings$ = this.store.select(fromStore.getToppings);
-
-    this.store.dispatch(new fromPizzas.LoadPizzas());
-    this.store.dispatch(new fromToppings.LoadToppings());
   }
 
   onSelect(event: Pizza) {
@@ -91,9 +88,6 @@ export class ProductItemComponent implements OnInit {
 
   onCreate(event: Pizza) {
     this.store.dispatch(new fromPizzas.CreatePizza(event));
-    // this.pizzaService.createPizza(event).subscribe(pizza => {
-    //   this.router.navigate([`/products/${pizza.id}`]);
-    // });
   }
 
   onUpdate(event: Pizza) {
