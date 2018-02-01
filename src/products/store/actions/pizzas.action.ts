@@ -6,6 +6,7 @@ export const MY_ACTION = '[Feature] My Action';
 export const LOAD_PIZZAS = '[Feature] Load Pizzas';
 export const LOAD_PIZZAS_FAIL = '[Feature] Load Pizzas Fail';
 export const LOAD_PIZZAS_SUCCESS = '[Feature] Load Pizzas Success';
+export const SELECT_PIZZA = '[Feature] Select Pizza';
 
 export class MyAction implements Action {
   readonly type = MY_ACTION;
@@ -27,5 +28,10 @@ export class LoadPizzasFail implements Action {
   constructor(public payload: any) {}
 }
 
+export class SelectPizza implements Action {
+  readonly type = SELECT_PIZZA;
+  constructor(public payload: Pizza) {}
+}
+
 // action types
-export type PizzasAction = MyAction | LoadPizzas | LoadPizzasSuccess | LoadPizzasFail;
+export type PizzasAction = MyAction | LoadPizzas | LoadPizzasSuccess | LoadPizzasFail | SelectPizza;

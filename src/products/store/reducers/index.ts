@@ -19,3 +19,4 @@ export const getPizzaState = createSelector(
   (state: ProductsState) => state.pizzas
 );
 export const getPizzas = createSelector(getPizzaState, fromPizzas.getPizzas);
+export const getSelectedPizza = createSelector(getPizzaState, fromPizzas.getSelectedPizza);

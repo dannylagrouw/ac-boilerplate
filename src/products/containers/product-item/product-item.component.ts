@@ -6,6 +6,9 @@ import { PizzasService } from '../../services/pizzas.service';
 import { ToppingsService } from '../../services/toppings.service';
 
 import * as fromStore from '../../store';
+import {Store} from '@ngrx/store';
+import * as fromPizzas from '../../store/actions/pizzas.action';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'product-item',
@@ -22,7 +25,7 @@ import * as fromStore from '../../store';
         (update)="onUpdate($event)"
         (remove)="onRemove($event)">
         <pizza-display
-          [pizza]="selected">
+          [pizza]="selected$ | async">
         </pizza-display>
       </pizza-form>
     </div>
@@ -30,14 +33,15 @@ import * as fromStore from '../../store';
 })
 export class ProductItemComponent implements OnInit {
   pizza: Pizza;
-  selected: Pizza;
+  selected$: Observable<Pizza>;
   toppings: string[];
 
   constructor(
     private pizzaService: PizzasService,
     private toppingsService: ToppingsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private store: Store<fromStore.ProductsState>
   ) {}
 
   ngOnInit() {
@@ -50,15 +54,17 @@ export class ProductItemComponent implements OnInit {
         pizza = pizzas.find(pizza => pizza.id == parseInt(param, 10));
       }
       this.pizza = pizza;
-      this.selected = pizza;
       this.toppingsService.getToppings().subscribe(toppings => {
         this.toppings = toppings;
       });
     });
+
+    this.selected$ = this.store.select(fromStore.getSelectedPizza);
+    this.store.dispatch(new fromPizzas.SelectPizza(this.pizza));
   }
 
   onSelect(event: Pizza) {
-    this.selected = event;
+    this.store.dispatch(new fromPizzas.SelectPizza(event));
   }
 
   onCreate(event: Pizza) {
