@@ -39,11 +39,16 @@
         "anchovy",
         "pepper",
         "olive",
-        "onion",
         "sweetcorn",
-        "tomato"
+        "tomato",
+        "basil",
+        "chili",
+        "onion",
+        "bacon",
+        "pepperoni"
       ],
-      "id": 2
+      "id": 2,
+      "sizes": []
     }
   ]
 }
