@@ -16,52 +16,50 @@ const initialState: PizzaState = {
 };
 
 export function reducer(state = initialState, action: fromPizzas.PizzasAction) {
-  function reducerInternal() {
-    switch (action.type) {
-      case fromPizzas.LOAD_PIZZAS: {
-        return {
-          ...state,
-          loaded: false,
-          loading: true
-        };
-      }
-      case fromPizzas.LOAD_PIZZAS_SUCCESS: {
-        return {
-          ...state,
-          pizzas: action.payload,
-          loaded: true,
-          loading: false
-        };
-      }
-      case fromPizzas.SELECT_PIZZA: {
-        return {
-          ...state,
-          selected: action.payload
-        };
-      }
-      case fromPizzas.CREATE_PIZZA_SUCCESS: {
-        return {
-          ...state,
-          pizzas: [...state.pizzas, action.payload]
-        };
-      }
-      case fromPizzas.UPDATE_PIZZA_SUCCESS: {
-        return {
-          ...state,
-          pizzas: state.pizzas.map(
-            pizza => (pizza.id === action.payload.id ? action.payload : pizza)
-          )
-        };
-      }
-      default: {
-        return state;
-      }
+  switch (action.type) {
+    case fromPizzas.LOAD_PIZZAS: {
+      return {
+        ...state,
+        loaded: false,
+        loading: true
+      };
+    }
+    case fromPizzas.LOAD_PIZZAS_SUCCESS: {
+      return {
+        ...state,
+        pizzas: action.payload,
+        loaded: true,
+        loading: false
+      };
+    }
+    case fromPizzas.SELECT_PIZZA: {
+      return {
+        ...state,
+        selected: action.payload
+      };
+    }
+    case fromPizzas.CREATE_PIZZA_SUCCESS: {
+      return {
+        ...state,
+        pizzas: [...state.pizzas, action.payload]
+      };
+    }
+    case fromPizzas.UPDATE_PIZZA_SUCCESS: {
+      return {
+        ...state,
+        pizzas: state.pizzas.map(pizza => (pizza.id === action.payload.id ? action.payload : pizza))
+      };
+    }
+    case fromPizzas.DELETE_PIZZA_SUCCESS: {
+      return {
+        ...state,
+        pizzas: state.pizzas.filter(pizza => pizza.id !== action.payload.id)
+      };
+    }
+    default: {
+      return state;
     }
   }
-
-  const newState = reducerInternal();
-  console.info('reducer', { oldState: state, action: action, newState });
-  return newState;
 }
 
 export const getPizzas = (state: PizzaState) => state.pizzas;

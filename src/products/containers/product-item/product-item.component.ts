@@ -97,9 +97,7 @@ export class ProductItemComponent implements OnInit {
   onRemove(event: Pizza) {
     const remove = window.confirm('Are you sure?');
     if (remove) {
-      this.pizzaService.removePizza(event).subscribe(() => {
-        this.router.navigate([`/products`]);
-      });
+      this.store.dispatch(new fromPizzas.DeletePizza(event));
     }
   }
 }

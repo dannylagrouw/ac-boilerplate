@@ -70,6 +70,29 @@ export class PizzasEffects {
       tap(() => this.router.navigate(['/products']))
     );
 
+  @Effect()
+  deletePizza$ = this.actions$
+    .ofType(pizzaActions.DELETE_PIZZA)
+    .pipe(
+      map((action: pizzaActions.DeletePizza) => action.payload),
+      exhaustMap(pizza =>
+        this.pizzaService
+          .removePizza(pizza)
+          .pipe(
+            map(() => new pizzaActions.DeletePizzaSuccess(pizza)),
+            catchError(error => of(new pizzaActions.DeletePizzaFail(error)))
+          )
+      )
+    );
+
+  @Effect({ dispatch: false })
+  deletePizzaSuccess$ = this.actions$
+    .ofType(pizzaActions.DELETE_PIZZA_SUCCESS)
+    .pipe(
+      map((action: pizzaActions.DeletePizzaSuccess) => action.payload),
+      tap(() => this.router.navigate(['/products']))
+    );
+
   constructor(
     private router: Router,
     private pizzaService: fromServices.PizzasService,
