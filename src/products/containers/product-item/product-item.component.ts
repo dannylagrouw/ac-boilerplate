@@ -8,6 +8,7 @@ import { ToppingsService } from '../../services/toppings.service';
 import * as fromStore from '../../store';
 import {Store} from '@ngrx/store';
 import * as fromPizzas from '../../store/actions/pizzas.action';
+import * as fromToppings from '../../store/actions/toppings.action';
 import {Observable} from 'rxjs/Observable';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
@@ -21,7 +22,7 @@ import {of} from 'rxjs/observable/of';
       class="product-item">
       <pizza-form
         [pizza]="pizza$ | async"
-        [toppings]="toppings"
+        [toppings]="toppings$ | async"
         (selected)="onSelect($event)"
         (create)="onCreate($event)"
         (update)="onUpdate($event)"
@@ -36,6 +37,7 @@ import {of} from 'rxjs/observable/of';
 export class ProductItemComponent implements OnInit {
   selected$: Observable<Pizza>;
   toppings: string[];
+  toppings$: Observable<string[]>;
   pizza$: Observable<Pizza>;
 
   constructor(
@@ -78,7 +80,10 @@ export class ProductItemComponent implements OnInit {
       })
     );
 
+    this.toppings$ = this.store.select(fromStore.getToppings);
+
     this.store.dispatch(new fromPizzas.LoadPizzas());
+    this.store.dispatch(new fromToppings.LoadToppings());
   }
 
   onSelect(event: Pizza) {
