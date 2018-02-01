@@ -37,13 +37,21 @@ export function reducer(state = initialState, action: fromPizzas.PizzasAction) {
         return {
           ...state,
           selected: action.payload
-        }
+        };
       }
       case fromPizzas.CREATE_PIZZA_SUCCESS: {
         return {
           ...state,
           pizzas: [...state.pizzas, action.payload]
-        }
+        };
+      }
+      case fromPizzas.UPDATE_PIZZA_SUCCESS: {
+        return {
+          ...state,
+          pizzas: state.pizzas.map(
+            pizza => (pizza.id === action.payload.id ? action.payload : pizza)
+          )
+        };
       }
       default: {
         return state;

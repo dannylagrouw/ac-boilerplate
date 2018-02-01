@@ -10,6 +10,12 @@ export const SELECT_PIZZA = '[Feature] Select Pizza';
 export const CREATE_PIZZA = '[Feature] Create Pizza';
 export const CREATE_PIZZA_SUCCESS = '[Feature] Create Pizza Success';
 export const CREATE_PIZZA_FAIL = '[Feature] Create Pizza Fail';
+export const UPDATE_PIZZA = '[Feature] Update Pizza';
+export const UPDATE_PIZZA_SUCCESS = '[Feature] Update Pizza Success';
+export const UPDATE_PIZZA_FAIL = '[Feature] Update Pizza Fail';
+export const DELETE_PIZZA = '[Feature] Delete Pizza';
+export const DELETE_PIZZA_SUCCESS = '[Feature] Delete Pizza Success';
+export const DELETE_PIZZA_FAIL = '[Feature] Delete Pizza Fail';
 
 export class MyAction implements Action {
   readonly type = MY_ACTION;
@@ -51,6 +57,36 @@ export class CreatePizzaFail implements Action {
   constructor(public payload: any) {}
 }
 
+export class UpdatePizza implements Action {
+  readonly type = UPDATE_PIZZA;
+  constructor(public payload: Pizza) {}
+}
+
+export class UpdatePizzaSuccess implements Action {
+  readonly type = UPDATE_PIZZA_SUCCESS;
+  constructor(public payload: Pizza) {}
+}
+
+export class UpdatePizzaFail implements Action {
+  readonly type = UPDATE_PIZZA_FAIL;
+  constructor(public payload: any) {}
+}
+
+export class DeletePizza implements Action {
+  readonly type = DELETE_PIZZA;
+  constructor(public payload: Pizza) {}
+}
+
+export class DeletePizzaSuccess implements Action {
+  readonly type = DELETE_PIZZA_SUCCESS;
+  constructor(public payload: Pizza) {}
+}
+
+export class DeletePizzaFail implements Action {
+  readonly type = DELETE_PIZZA_FAIL;
+  constructor(public payload: any) {}
+}
+
 // action types
 export type PizzasAction =
   | MyAction
@@ -60,4 +96,10 @@ export type PizzasAction =
   | SelectPizza
   | CreatePizza
   | CreatePizzaSuccess
-  | CreatePizzaFail;
+  | CreatePizzaFail
+  | UpdatePizza
+  | UpdatePizzaSuccess
+  | UpdatePizzaFail
+  | DeletePizza
+  | DeletePizzaSuccess
+  | DeletePizzaFail;
